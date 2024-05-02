@@ -51,12 +51,58 @@
         .product .price {
             font-weight: bold;
         }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .cart {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #fff;
+            color: #333;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid #333;
+        }
     </style>
 
 
 </head>
 
 <body>
+
+    <header>
+        <h1>Min E-handelsplats</h1>
+        <nav>
+            <a href="#">Hem</a>
+            <a href="#">Produkter</a>
+            <a href="#">Om oss</a>
+            <a href="#">Kontakt</a>
+        </nav>
+        <div class="cart">Varukorg (0)</div>
+    </header>
+
     <?php
 
     session_start();
