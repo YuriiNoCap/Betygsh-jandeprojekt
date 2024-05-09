@@ -6,94 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            grid-gap: 20px;
-        }
-
-        .product {
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            padding: 20px;
-            position: relative;
-            transition: transform 0.5s ease;
-            cursor: pointer;
-        }
-
-        .product:hover {
-            transform: scale(1.08);
-        }
-
-        .product h3 {
-            margin-top: 0;
-            color: #333;
-        }
-
-        .product p {
-            margin-bottom: 5px;
-        }
-
-        .product .price {
-            font-weight: bold;
-        }
-
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
-            position: relative;
-        }
-
-        nav {
-            display: flex;
-            justify-content: center;
-        }
-
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            margin: 0 15px;
-        }
-
-        nav a:hover {
-            text-decoration: underline;
-        }
-
-        .cart {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: #fff;
-            color: #333;
-            padding: 5px 10px;
-            border-radius: 5px;
-            border: 1px solid #333;
-        }
-    </style>
-
-
+    <link rel="stylesheet" href="style1.css" />
 </head>
 
 <body>
 
     <header>
-        <h1>Min E-handelsplats</h1>
+        <h1>DJ-utrustning handelsplats</h1>
         <nav>
             <a href="#">Hem</a>
             <a href="#">Produkter</a>
@@ -127,7 +46,7 @@
             ) {
                 $login_success = true;
                 $full_name = $row["FullName"] . " ";
-                $_SESSION["username"] = $_POST["username"]; // Spara användarnamnet i sessionen
+                $_SESSION["username"] = $_POST["username"];
             }
         }
     } else {
@@ -137,7 +56,6 @@
 
     if ($login_success) {
 
-        // Kod för att hämta och visa DJ-utrustningsprodukter
         $sql_products = "SELECT * FROM dj_utrustning";
         $result_products = $conn->query($sql_products);
 
@@ -148,6 +66,10 @@
                 echo "<h3>" . $row_product["produktnamn"] . "</h3>";
                 echo "<p>" . $row_product["beskrivning"] . "</p>";
                 echo "<p class='price'>Pris: $" . $row_product["pris"] . "</p>";
+                echo "<form method='post'>";
+                echo "<input type='hidden' name='product_id' value='" . $row_product["id"] . "'>";
+                echo "<button type='submit' name='buy'>Köp</button>";
+                echo "</form>";
                 echo "</div>";
             }
             echo "</div>";
@@ -157,6 +79,19 @@
     } else {
         echo "Inloggning misslyckades";
     }
+
+    if (isset($_POST['buy'])) {
+        $product_id = $_POST['product_id'];
+        // Lägger INTE till produkter i varukorg!!!
+        $sql_add_to_cart = "INSERT INTO varukorg (user_id, product_id) VALUES ('$user_id', '$product_id')";
+        if ($conn->query($sql_add_to_cart) === TRUE) {
+            echo "Produkten har lagts till i varukorgen.";
+        } else {
+            echo "Fel: " . $sql_add_to_cart . "<br>" . $conn->error;
+        }
+    }
+
+
     $conn->close();
 
 
