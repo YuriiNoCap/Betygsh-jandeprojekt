@@ -29,7 +29,6 @@
                 password_verify($_POST["password"], $hash)
             ) {
                 $login_success = true;
-                // $full_name = $row["FullName"] . " ";
                 session_start();
                 $_SESSION["username"] = $_POST["username"];
                 header("Location: products.php");
@@ -37,6 +36,9 @@
             }
         }
     }
+
+    header("Location: index.html");
+    exit();
 
     $conn->close();
     ?>
