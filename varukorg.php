@@ -16,8 +16,8 @@
         <nav>
             <a href="products.php">Hem</a>
             <a href="varukorg.php">Varukorg</a>
-            <a href="#">Om oss</a>
-            <a href="index.html">Logga ut</a>
+            <a href="konto.php">Konto</a>
+            <a href="loggaut.php">Logga ut</a>
         </nav>
     </header>
 

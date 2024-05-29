@@ -14,9 +14,10 @@ $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 $sql = "INSERT INTO users (FullName, Username, Email, Password) VALUES ('$fullname', '$username', '$email', '$password')";
 
 if ($conn->query($sql) === TRUE) {
-    echo "Konto skapat framgångsrikt";
-    echo '<br><br><a href="index.html">Gå tillbaka till logga in</a>';
-} else {
+    header("Location: index.html?Kontot-har-skapats");
+    exit();
+} 
+    else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
 
